@@ -13,7 +13,7 @@
           v-model="email"
           type="text"
           name="email"
-          class="border-4 bg-primary uppercase text-secondary font-bold rounded pl-12 pr-3 py-3 w-full focus:outline-none focus:shadow"
+          class="border-4 bg-primary text-secondary font-bold rounded pl-12 pr-3 py-3 w-full focus:outline-none focus:shadow"
           :class="
             emailError || userError ? 'border-red-600' : 'border-secondary'
           "
@@ -40,7 +40,7 @@
           v-model="password"
           type="password"
           name="password"
-          class="border-4 bg-primary uppercase text-secondary font-bold rounded pl-12 px-3 py-3 w-full focus:outline-none focus:shadow"
+          class="border-4 bg-primary text-secondary font-bold rounded pl-12 px-3 py-3 w-full focus:outline-none focus:shadow"
           :class="passwordError ? 'border-red-600' : 'border-secondary'"
           placeholder="Mot de passe"
         />
@@ -109,6 +109,9 @@ export default {
           this.userError = ''
         }
         // console.error(error.code)
+      }
+      if (this.authUser) {
+        this.$router.push('/dashboard')
       }
     },
     // If I want to create an User but here we don't do that in the project

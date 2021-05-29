@@ -1,9 +1,11 @@
-export default function ({ store, redirect, route }) {
-  store.state.authUser === null && isAuthenticated(route) ? redirect('/') : ''
-}
-
-function isAuthenticated(route) {
-  if (route.name === 'dashboard') {
-    return true
+/* eslint-disable no-lonely-if */
+/* eslint-disable no-empty */
+export default function ({ store, route, redirect }) {
+  // Redirect to dashboard if auth
+  if (store.state.authUser) {
+    if (route.path === '/dashboard') {
+    } else {
+      return redirect('/dashboard')
+    }
   }
 }

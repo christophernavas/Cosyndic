@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div><button @click="logout()">Déconnection</button></div>
 </template>
 <script>
 export default {
@@ -11,20 +11,19 @@ export default {
     query.forEach((element) => {
       users.push(element.data())
     })
-    console.log(users)
   },
   created() {
     // this.logout()
   },
   methods: {
-    // async logout() {
-    //   try {
-    //     await this.$fire.auth.signOut()
-    //     this.$router.push('/')
-    //   } catch (error) {
-    //     console.error(error)
-    //   }
-    // },
+    async logout() {
+      try {
+        await this.$fire.auth.signOut()
+        this.$router.push('/')
+      } catch (error) {
+        console.error(error)
+      }
+    },
   },
 }
 </script>

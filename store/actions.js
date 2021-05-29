@@ -1,5 +1,5 @@
 export default {
-  async nuxtServerInit({ dispatch, commit }, { res }) {
+  async nuxtServerInit({ dispatch }, { res }) {
     if (res && res.locals && res.locals.user) {
       const { ...authUser } = res.locals.user
 
