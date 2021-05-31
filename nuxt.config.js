@@ -38,7 +38,7 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     // https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -63,9 +63,10 @@ export default {
             },
           },
           firestore: true,
-        }
-      }
-    ]
+          storage: true,
+        },
+      },
+    ],
   ],
 
   router: {

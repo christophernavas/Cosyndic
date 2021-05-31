@@ -67,8 +67,6 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
-
 export default {
   data() {
     return {
@@ -79,20 +77,22 @@ export default {
       userError: '',
     }
   },
-  computed: {
-    ...mapState({
-      authUser: (state) => state.authUser,
-    }),
-  },
+
   methods: {
     async login() {
       try {
-        await this.$fire.auth.signInWithEmailAndPassword(
-          this.email,
-          this.password
-        )
+        await this.$fire.auth
+          .signInWithEmailAndPassword(this.email, this.password)
+          // .then((userCredential) => {
+          //   const user = {
+          //     email: userCredential.user.email,
+          //     uid: userCredential.user.uid,
+          //   }
+          //   console.log(user)
+          //   this.$store.dispatch('login', user)
+          // })
+          .then(this.goToDashboard)
       } catch (error) {
-        console.error(error)
         if (error.code === 'auth/invalid-email') {
           this.emailError = 'Adresse email non valide'
         } else {
@@ -110,9 +110,12 @@ export default {
         }
         // console.error(error.code)
       }
-      if (this.authUser) {
-        this.$router.push('/dashboard')
-      }
+    },
+    goToDashboard() {
+      this.$router.push({
+        name: 'dashboard',
+      })
+      this.$nuxt.refresh()
     },
     // If I want to create an User but here we don't do that in the project
     // async createUser() {

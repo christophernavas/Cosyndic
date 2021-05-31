@@ -12,6 +12,16 @@
   background-color: #3F3D56;
 }
 
+.border-secondary{
+  border-color: #3F3D56;
+}
+
+.border-secondary-light{
+  border-color: #5F5E72
+}
+
+
+
 .text-primary{
   color: #D8E9EF;
 }
@@ -40,3 +50,5 @@ border-color: rgba(63, 61, 86, var(--tw-border-opacity));
   align-items: center;
   text-align: center;
 }
+
+/* Intro, Description du projet, les attentes, comment avez vous modéliser, quel techno vous avez utiliser, votre découpage par itération */

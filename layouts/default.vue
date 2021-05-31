@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-primary">
-    <Nuxt  />
+  <div class="bg-primary h-screen">
+    <Nuxt />
   </div>
 </template>
 
