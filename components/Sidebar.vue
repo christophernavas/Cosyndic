@@ -1,7 +1,7 @@
 <template>
   <div class="border-r-2 border-secondary pt-5 px-6 h-screen">
     <Logo text-size="text-2xl" />
-    <ul class="p-3">
+    <ul class="p-3 mt-12">
       <li class="pt-3 pb-6 flex items-center">
         <img class="h-4 pr-3" src="sidebar/home.svg" alt="" />
         <span>Accueil</span>
