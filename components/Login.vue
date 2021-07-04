@@ -83,14 +83,6 @@ export default {
       try {
         await this.$fire.auth
           .signInWithEmailAndPassword(this.email, this.password)
-          // .then((userCredential) => {
-          //   const user = {
-          //     email: userCredential.user.email,
-          //     uid: userCredential.user.uid,
-          //   }
-          //   console.log(user)
-          //   this.$store.dispatch('login', user)
-          // })
           .then(this.goToDashboard)
       } catch (error) {
         if (error.code === 'auth/invalid-email') {
@@ -108,7 +100,6 @@ export default {
         } else {
           this.userError = ''
         }
-        // console.error(error.code)
       }
     },
     goToDashboard() {

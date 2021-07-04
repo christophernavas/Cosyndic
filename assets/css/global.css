@@ -58,3 +58,7 @@ border-color: rgba(63, 61, 86, var(--tw-border-opacity));
 .card{
   @apply px-10 my-4 py-6 rounded shadow-xl bg-white;
 }
+
+.dashboard-container{
+  max-width: 900px;
+}

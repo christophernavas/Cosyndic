@@ -10,39 +10,40 @@
           <h2 class="text-lg">Voici l'actualité de votre copropriété</h2>
           <hr class="my-6 p-2 border-secondary" />
         </div>
-        <div class="flex">
-          <!-- Building Info -->
+        <div class="dashboard-container">
+          <div class="flex">
+            <!-- Building Info -->
 
-          <div
-            class="max-w-md ml-10 bg-white rounded-xl shadow-md overflow-hidden"
-          >
-            <div class="md:flex">
-              <div class="md:flex-shrink-0">
-                <img
-                  class="h-48 w-full object-cover md:w-48"
-                  :src="building.buildingImg"
-                  alt="Man looking at item at a store"
-                />
-              </div>
-              <div class="p-8">
-                <div class="uppercase tracking-wide text-lg font-semibold">
-                  Votre immeuble
+            <div
+              class="w-full ml-10 bg-white rounded-xl shadow-md overflow-hidden"
+            >
+              <div class="md:flex">
+                <div class="md:flex-shrink-0">
+                  <img
+                    class="h-48 w-full object-cover md:w-48"
+                    :src="building.buildingImg"
+                    alt="Man looking at item at a store"
+                  />
                 </div>
-                <p
-                  class="block mt-1 text-lg leading-tight font-medium text-black"
-                >
-                  {{ building.name }}
-                </p>
-                <div class="mt-2 text-gray-500">
-                  <div>{{ building.address }}</div>
-                  <span>{{ building.zipCode }}</span>
-                  <span>{{ building.city }}</span>
+                <div class="p-8">
+                  <div class="uppercase tracking-wide text-lg font-semibold">
+                    Votre immeuble
+                  </div>
+                  <p
+                    class="block mt-1 text-lg leading-tight font-medium text-black"
+                  >
+                    {{ building.name }}
+                  </p>
+                  <div class="mt-2 text-gray-500">
+                    <div>{{ building.address }}</div>
+                    <span>{{ building.zipCode }}</span>
+                    <span>{{ building.city }}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Copro Info -->
-          <!--
+            <!-- Copro Info -->
+            <!--
           <div
             class="max-w-md ml-10 bg-white rounded-xl shadow-md overflow-hidden"
           >
@@ -57,12 +58,41 @@
               </div>
             </div>
           </div> -->
+          </div>
+          <!-- Paiement info -->
+          <div
+            class="mt-10 ml-10 bg-white rounded-xl shadow-md overflow-hidden"
+          >
+            <div class="md:flex">
+              <div class="p-8">
+                <div class="uppercase tracking-wide text-lg font-semibold">
+                  Appels de fonds
+                </div>
+                <p
+                  class="block mt-1 text-3xl leading-tight font-medium text-black"
+                >
+                  700,00€
+                </p>
+                <div class="mt-6 text-gray-500">
+                  <div>
+                    Votre montant à payer pour votre appel de fonds du trimestre
+                  </div>
+                </div>
+                <button
+                  class="mt-10 bg-secondary text-white font-bold py-4 px-4 rounded"
+                >
+                  Payer maintenant
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+/* eslint-disable no-console */
 export default {
   async asyncData({ app, store }) {
     if (store.state.authUser !== null) {
@@ -80,7 +110,6 @@ export default {
           if (doc.exists) {
             return doc.data()
           } else {
-            // doc.data() will be undefined in this case
             console.log('Document not found!')
           }
         })
