@@ -15,6 +15,12 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://js.stripe.com/v3',
+        defer: true,
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -64,6 +70,10 @@ export default {
           },
           firestore: true,
           storage: true,
+          functions: {
+            location: 'us-central1',
+            // emulatorHost: 'http://localhost:4002',
+          },
         },
       },
     ],
@@ -77,5 +87,9 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    babel: {
+      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]],
+    },
+  },
 }

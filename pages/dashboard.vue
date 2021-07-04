@@ -22,7 +22,7 @@
                   <img
                     class="h-48 w-full object-cover md:w-48"
                     :src="building.buildingImg"
-                    alt="Man looking at item at a store"
+                    alt="Image de l'immeuble"
                   />
                 </div>
                 <div class="p-8">
@@ -80,6 +80,7 @@
                 </div>
                 <button
                   class="mt-10 bg-secondary text-white font-bold py-4 px-4 rounded"
+                  @click="redirectToStripe(userId)"
                 >
                   Payer maintenant
                 </button>
@@ -118,18 +119,18 @@ export default {
         })
 
       // Adding img from storage
-      const currentImg = await app.$fire.storage
-        .ref()
-        .child(`users/${userId}.png`)
-        .getDownloadURL()
-        .then(function (url) {
-          return url
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+      // const currentImg = await app.$fire.storage
+      //   .ref()
+      //   .child(`users/${userId}.png`)
+      //   .getDownloadURL()
+      //   .then(function (url) {
+      //     return url
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error)
+      //   })
       // Adding currentImg to user object
-      currentUser.userImg = currentImg
+      // currentUser.userImg = currentImg
 
       // Getting building document
       const currentBuilding = await currentUser.buildingId
@@ -146,25 +147,26 @@ export default {
           console.log('Error getting document:', error)
         })
       // Adding img from storage
-      const currentImgBuilding = await app.$fire.storage
-        .ref()
-        .child(`buildings/${currentUser.buildingId.id}.png`)
-        .getDownloadURL()
-        .then(function (url) {
-          return url
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+      // const currentImgBuilding = await app.$fire.storage
+      //   .ref()
+      //   .child(`buildings/${currentUser.buildingId.id}.png`)
+      //   .getDownloadURL()
+      //   .then(function (url) {
+      //     return url
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error)
+      //   })
 
       // Adding currentImg to user object
-      currentUser.userImg = currentImg
+      // currentUser.userImg = currentImg
 
       // Adding currentImgBuilding to building object
-      currentBuilding.buildingImg = currentImgBuilding
+      // currentBuilding.buildingImg = currentImgBuilding
 
       // Return building & user data
       return {
+        userId,
         user: currentUser,
         building: currentBuilding,
       }
@@ -173,6 +175,10 @@ export default {
   created() {
     // this.logout()
   },
+  mounted() {
+    // eslint-disable-next-line no-undef
+    this.stripe = Stripe(process.env.STRIPE_PUBLIC_KEY)
+  },
   methods: {
     async logout() {
       try {
@@ -180,6 +186,22 @@ export default {
         this.$router.push('/')
       } catch (error) {
         console.error(error)
+      }
+    },
+    redirectToStripe(userId) {
+      // Getting functions from firebase cloud functions
+      if (
+        this.$fire.functions.httpsCallable('createStripeCheckout') &&
+        this.stripe
+      ) {
+        const createStripeCheckout = this.$fire.functions.httpsCallable(
+          'createStripeCheckout'
+        )
+
+        createStripeCheckout({ userId }).then((response) => {
+          const sessionId = response.data.id
+          this.stripe.redirectToCheckout({ sessionId })
+        })
       }
     },
   },
