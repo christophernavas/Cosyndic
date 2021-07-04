@@ -1,24 +1,56 @@
 const functions = require("firebase-functions");
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
+const admin = require("firebase-admin");
+
+const serviceAccount = require("./credentials/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const db = admin.firestore();
 
 exports.createStripeCheckout = functions
     .https.onCall(async (data, context) => {
+      // Check if database exist
+      if (!db) {
+        return "Database not found";
+      }
+
+      // Check if userId is here
+      const userId = data.userId;
+      if (!userId) {
+        return "Missing post user data";
+      }
+
+      // Create a ref from current user data
+      const currentUser = await db.collection("users").doc(userId).get();
+
+      // Check if user exist
+      let currentUserData = undefined;
+      if (!currentUser.exists) {
+        return "No document";
+      } else {
+        currentUserData = currentUser.data();
+      }
+
+      const currentPayment = currentUserData.currentPayment;
+
       const currentSite = functions.config().env.site;
       // Stripe Init
-      const stripe = require("stripe")(functions.config().stripe.secret_key);
-      const session = await stripe.checkout.session.create({
+      const stripe = require("stripe")(functions.config().stripe.secret);
+
+      const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
           {
             price_data: {
-              currency: "eu",
+              currency: "eur",
               product_data: {
                 name: "Paiement des charges",
                 // images: ['https://i.imgur.com/EHyR2nP.png'],
               },
-              unit_amount: 2000,
+              unit_amount: currentPayment,
             },
             quantity: 1,
           },
