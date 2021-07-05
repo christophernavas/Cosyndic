@@ -71,7 +71,7 @@
                 <p
                   class="block mt-1 text-3xl leading-tight font-medium text-black"
                 >
-                  700,00€
+                  {{ getCurrentPayment() }}
                 </p>
                 <div class="mt-6 text-gray-500">
                   <div>
@@ -203,6 +203,13 @@ export default {
           this.stripe.redirectToCheckout({ sessionId })
         })
       }
+    },
+    getCurrentPayment() {
+      let price = this.user.currentPayment
+      price = price.toString()
+      price = [price.slice(0, -2), ',', price.slice(-2)].join('')
+      price += ' €'
+      return price
     },
   },
 }

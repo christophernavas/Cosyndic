@@ -56,8 +56,8 @@ exports.createStripeCheckout = functions
           },
         ],
         mode: "payment",
-        success_url: `${currentSite}success.html`,
-        cancel_url: `${currentSite}cancel.html`,
+        success_url: `${currentSite}success`,
+        cancel_url: `${currentSite}cancel`,
       });
 
       return {
