@@ -7,7 +7,8 @@
       CoSyndic
     </h1>
     <img
-      class="text-secondary mt-2 h-10"
+      class="text-secondary mt-2"
+      :class="iconClass"
       src="/logo-icon.svg"
       alt="svg logo icon"
     />
@@ -19,11 +20,13 @@ export default {
   props: {
     textSize: {
       require: false,
+      type: String,
       default: 'text-7xl',
     },
     iconClass: {
       require: false,
-      default: 'h-20',
+      type: String,
+      default: 'h-16',
     },
   },
 }

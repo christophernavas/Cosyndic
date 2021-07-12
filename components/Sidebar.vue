@@ -1,7 +1,7 @@
 <template>
   <div class="border-r-2 border-secondary pt-5 px-6 h-screen">
     <nuxt-link to="/dashboard">
-      <Logo text-size="text-2xl" />
+      <Logo icon-class="h-10" text-size="text-2xl" />
     </nuxt-link>
     <ul class="p-3 mt-12">
       <li class="pt-3 pb-6 flex items-center">

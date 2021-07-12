@@ -67,6 +67,8 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -77,13 +79,18 @@ export default {
       userError: '',
     }
   },
-
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn',
+    }),
+  },
   methods: {
     async login() {
       try {
-        await this.$fire.auth
-          .signInWithEmailAndPassword(this.email, this.password)
-          .then(this.goToDashboard)
+        await this.$fire.auth.signInWithEmailAndPassword(
+          this.email,
+          this.password
+        )
       } catch (error) {
         if (error.code === 'auth/invalid-email') {
           this.emailError = 'Adresse email non valide'
@@ -101,12 +108,24 @@ export default {
           this.userError = ''
         }
       }
+      // Waiting for loggin and then go to the dashboard
+      await this.until((_) => this.isLoggedIn === true)
+      this.goToDashboard()
     },
     goToDashboard() {
-      this.$router.push({
-        name: 'dashboard',
-      })
-      this.$nuxt.refresh()
+      if (this.isLoggedIn) {
+        this.$router.push({
+          name: 'dashboard',
+        })
+      }
+    },
+    until(conditionFunction) {
+      const poll = (resolve) => {
+        if (conditionFunction()) resolve()
+        else setTimeout((_) => poll(resolve), 400)
+      }
+
+      return new Promise(poll)
     },
     // If I want to create an User but here we don't do that in the project
     // async createUser() {
