@@ -42,22 +42,6 @@
                 </div>
               </div>
             </div>
-            <!-- Copro Info -->
-            <!--
-          <div
-            class="max-w-md ml-10 bg-white rounded-xl shadow-md overflow-hidden"
-          >
-            <div class="md:flex">
-              <div class="p-8">
-                <div class="uppercase tracking-wide text-lg font-semibold">
-                  Copropriétaires
-                </div>
-                <div v-for="(user, index) in building.users" :key="index">
-                  {{ user }}
-                </div>
-              </div>
-            </div>
-          </div> -->
           </div>
           <!-- Paiement info -->
           <div
@@ -119,18 +103,18 @@ export default {
         })
 
       // Adding img from storage
-      // const currentImg = await app.$fire.storage
-      //   .ref()
-      //   .child(`users/${userId}.png`)
-      //   .getDownloadURL()
-      //   .then(function (url) {
-      //     return url
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error)
-      //   })
+      const currentImg = await app.$fire.storage
+        .ref()
+        .child(`users/${userId}.png`)
+        .getDownloadURL()
+        .then(function (url) {
+          return url
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
       // Adding currentImg to user object
-      // currentUser.userImg = currentImg
+      currentUser.userImg = currentImg
 
       // Getting building document
       const currentBuilding = await currentUser.buildingId
@@ -147,22 +131,22 @@ export default {
           console.log('Error getting document:', error)
         })
       // Adding img from storage
-      // const currentImgBuilding = await app.$fire.storage
-      //   .ref()
-      //   .child(`buildings/${currentUser.buildingId.id}.png`)
-      //   .getDownloadURL()
-      //   .then(function (url) {
-      //     return url
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error)
-      //   })
+      const currentImgBuilding = await app.$fire.storage
+        .ref()
+        .child(`buildings/${currentUser.buildingId.id}.png`)
+        .getDownloadURL()
+        .then(function (url) {
+          return url
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
 
       // Adding currentImg to user object
-      // currentUser.userImg = currentImg
+      currentUser.userImg = currentImg
 
       // Adding currentImgBuilding to building object
-      // currentBuilding.buildingImg = currentImgBuilding
+      currentBuilding.buildingImg = currentImgBuilding
 
       // Return building & user data
       return {
