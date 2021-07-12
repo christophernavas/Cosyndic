@@ -60,14 +60,14 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 ```bash
 # install dependencies
-$ yarn install
+$ npm install
 
 # serve an emulator for cloud functions at localhost:4002
-$ yarn serve
+$ npm run serve
 
 # build the functions in a US server for local testing
-$ yarn deploy-local
+$ npm run deploy-local
 
 # build the functions in a US server for production
-$ yarn deploy
+$ npm run deploy
 ```
