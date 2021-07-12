@@ -32,6 +32,8 @@ User 4
 If you want to test stripe checkout you have to click here after logging into the dashboard:
 ![Stripe test](./static/testingStripe.png "Stripe test")
 
+Go here [Stripe testing](https://stripe.com/docs/testing#cards) for testing Stripe Checkout with fake cards.
+
 ## Build Setup for nuxt (front)
 
 ```bash
